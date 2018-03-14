@@ -1,10 +1,4 @@
-class Movie {
-    constructor(id, name, image) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
-    }
-}
+import { Movie } from "./entities/movie.js"
 
 const createMovie = ({id, name, image}) => {
     

@@ -31,7 +31,7 @@ const displayShowCast = (arr) => {
     nodes.showCast.appendChild(ul)
 }
 
-const displayShowSesons = (arr) => {
+const displayShowSeasons = (arr) => {
     let ul = document.createElement("ul")
     arr.forEach(element => {
             let li = document.createElement("li")
@@ -69,7 +69,7 @@ const displayMovies = (arr) => {
 export {
     displayMovies, 
     displayShowDetails,
-    displayShowSesons,
+    displayShowSeasons,
     displayShowCast,
     displaySearchResults
 }
