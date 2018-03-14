@@ -1,0 +1,17 @@
+{
+  "name": "client-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./server/src/server.js"
+  },
+  "author": "Vuk",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.17.2"
+  },
+  "dependencies": {
+    "lorem-ipsum": "^1.0.4"
+  }
+}
