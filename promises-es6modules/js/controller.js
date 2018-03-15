@@ -2,6 +2,8 @@ import * as ui from "./view.js"
 import  { nodes }  from "./constants.js"
 import  { urls }  from "./constants.js"
 import  { getMovies }  from "./model.js"
+import { getData } from "./entities/communications.js"
+import { errorHandler } from "./helpers.js"
 
 const goTo = (url) => {
     window.location.assign(url)
@@ -19,33 +21,19 @@ document.addEventListener("click", (e) => {
 nodes.searchInput.addEventListener("keydown", function() {
     if(nodes.searchInput.value.length >= 3) {
 
-        const request = new Promise((resolve, reject) => {
-            const response = fetch(`${urls.search}${this.value}`)
-            resolve(response)
-        })
-        .then(response => {
-            console.log(response);
-            
-            return res.json()
-        })
+        getData(`${urls.search}/${this.value}`)
         .then(searchResults => {
             ui.displaySearchResults(searchResults)
         })
         .catch(error => {
-            throw new Error("Sever failed to response")
+            throw new Error("Server failed to response")
         })
     }
 })
 
 const initDisplayShows = () => {
     
-    const request = new Promise((resolve, reject) => {
-        const response = fetch(urls.display50)
-        resolve(response)
-    })
-    .then(response => {
-        return response.json()
-    })
+    getData(urls.display50)    
     .then(movieList => {
         ui.displayMovies(movieList)
     })
@@ -56,13 +44,7 @@ const initDisplayShows = () => {
 
 const intShowDetail = () => {
 
-    const requestShowDetails = new Promise((resolve, reject) => {
-        const response = fetch(urls.details + localStorage.showId)
-            resolve(response)
-    })
-    .then(response => {
-        return response.json()
-    })
+    getData(`${urls.details}${localStorage.showId}`)    
     .then(showDetails => {
         ui.displayShowDetails(showDetails) 
     })
@@ -70,13 +52,7 @@ const intShowDetail = () => {
         throw new Error("Server failed to response")
     })
 
-    const requestShowCasts = new Promise((resolve, reject) => {
-        const response = fetch(`${urls.details}${localStorage.showId}/cast`)
-            resolve(response)
-    })
-    .then(response => {
-        return response.json()
-    })
+    getData(`${urls.details}${localStorage.showId}/cast`)    
     .then(showCast => {
         ui.displayShowCast(showCast)
     })
@@ -84,13 +60,7 @@ const intShowDetail = () => {
         throw new Error("Server failed to response")
     })
 
-    const requestShowSeasons = new Promise((resolve, reject) => {
-        const response = fetch(`${urls.details}${localStorage.showId}/seasons`)
-            resolve(response)
-    })
-    .then(response => {
-        return response.json()
-    })
+    getData(`${urls.details}${localStorage.showId}/seasons`)
     .then(seasons => {
         ui.displayShowSeasons(seasons)
     })
@@ -98,15 +68,7 @@ const intShowDetail = () => {
         throw new Error("Server failed to response")
     })
 
-    const requestShowAkA = new Promise((resolve, reject) => {
-        const response = fetch(`${urls.details}${localStorage.showId}/akas`)
-            resolve(response)
-    })
-    .then(response => {
-        return response.json()
-
-        // not finished
-    })
+    getData(`${urls.details}${localStorage.showId}/akas`)
     .catch(error => {
         throw new Error("Server failed to response")
     })    
