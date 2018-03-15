@@ -1,21 +1,30 @@
-const listOfProducts = ["meet, fruit", "smokes", "fourth", "fifth"];
+const listOfProducts = ["meet", "fruit", "smokes", "fourth", "fifth"];
 
-const createProductList = () => {
-     const myProducts = listOfProducts.map(elem => {
-        return <Product />
-    })
-    console.log(myProducts);
+const capitalize = (arr) => {                                       // i just cant work with uppercase :D
+    const goodLooking = arr.map(element => {
+        const firstChar = element.charAt(0).toUpperCase()
+        const restOfWord = element.substring(1)
+        return firstChar + restOfWord
+    });
     
+    return goodLooking
 }
 
-const Product = () => {
-    return <li>My product</li>
+const goodLooking = capitalize(listOfProducts)
+
+const createProductList = () => {
+    return goodLooking.map((elem, i) => <Product name={elem} key={i} /> )    
+}
+
+
+const Product = (props) => {
+    return <li>{props.name}</li>
 }
 
 const ShoppingList = () => {
     return (
         <ul>
-            {createProductList()}
+          {createProductList()} 
         </ul>
     ) 
 }
