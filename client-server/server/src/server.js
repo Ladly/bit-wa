@@ -4,8 +4,6 @@ const port = 3000;
 
 const { result } = require("./data")
 
-console.log(result);
-
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;

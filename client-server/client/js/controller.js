@@ -1,15 +1,10 @@
 import { getData, displayData } from "./view.js"
+import { urls } from "./constants.js"
+import { get } from "./entities/comms.js"
 
 const init = () => {
-    
-    const request = new Promise((resolve, reject) => {
-        const response = fetch('http://127.0.0.1:3000')
-            resolve(response)
-    })
-    .then(response => {
-        return response.json();
-                             
-    })
+
+    get.fetchData(urls.getMyServerData)
     .then(posts => {
         return getData(posts);
     })
