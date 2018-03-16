@@ -16,7 +16,6 @@ const createProductList = () => {
     return goodLooking.map((elem, i) => <Product name={elem} key={i} /> )    
 }
 
-
 const Product = (props) => {
     return <li>{props.name}</li>
 }
