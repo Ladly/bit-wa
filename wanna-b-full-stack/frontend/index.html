@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        button {
+            margin: 5px 5px;
+        }
+    </style>
+</head>
+<body>
+
+        <form action="http://localhost:8081/quotes" method="POST">
+            <input type="text" placeholder="name" name="name">
+            <input type="text" placeholder="quote" name="quote">
+            <button type="submit">Submit</button>
+        </form>
+
+        <hr>
+
+        <ul class="quote-holder"></ul>
+    
+    <script>
+        const stupidServerCrashing = 8081
+        fetch(`http://localhost:${stupidServerCrashing}/getquotes`)    
+        .then(response => response.json())
+        .then (quotes => displayQuotes(quotes) )
+        
+        document.querySelector("button").addEventListener("click", () => { // just to see that quote had been added without sending another req to server to display new quote or refreshing
+            alert("succesfully added quote")
+        })
+        
+
+        const displayQuotes = (arr) => {                        
+            ul = document.querySelector(".quote-holder")
+            return arr.map(quote => {
+                editButton = document.createElement("button")
+                editButton.textContent = "Edit"               
+                editButton.setAttribute("data-id", quote._id)  // id is for db when want to edit quote
+                editButton.addEventListener("click", editQuote) 
+                      
+                deleteButton = document.createElement("button")
+                deleteButton.textContent = "Delete"
+                deleteButton.setAttribute("data-id", quote._id)      // id is for db when want to delete quote
+                deleteButton.addEventListener("click", deleteQuote)
+                
+                li = document.createElement("li")
+                li.textContent = `${quote.name}- ${quote.quote}`
+                
+                li.appendChild(deleteButton)
+                li.appendChild(editButton)                
+                ul.appendChild(li)
+            })
+        }
+
+         function deleteQuote(){
+             let id = this.getAttribute("data-id")
+           
+            fetch(`http://localhost:${stupidServerCrashing}/deletequotes`, {
+                        method: 'delete',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                        "id": id
+                            })
+                    })           
+            }
+
+            function editQuote() {
+                let id = this.getAttribute("data-id")
+                fetch(`http://localhost:${stupidServerCrashing}/updateQuotes`, {
+                        method: 'put',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            "id" : "id",
+                            'name': 'Vuk',
+                            'quote': 'this makes sense'
+                        })
+                })
+                
+            }
+    </script>
+</body>
+</html>
