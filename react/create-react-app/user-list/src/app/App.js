@@ -6,7 +6,7 @@ import { UserList } from './users/UserList';
 
 const App = () => {
   return (
-      <div>
+      <div className="container">
             <Header />
             <UserList />
             <Footer />

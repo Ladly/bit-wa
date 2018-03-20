@@ -1,14 +1,16 @@
 import React from 'react'
 
-import { UserItem } from './UserItem'
+import { UserListItem } from './UserListItem'
 // import { UserListItemCards } from './UserListItemCards'
 import { semiHideEmail } from './../../shared/utils'
 import { userService } from './../../services/UserServices'
 
 export class UserList extends React.Component {
-    constructor() {
-        super()
-        this.state = { users: [] }
+    constructor(props) {
+        super(props)
+        this.state = { 
+            users: []
+        }
     }
 
     componentDidMount() {
@@ -19,12 +21,11 @@ export class UserList extends React.Component {
     }
 
     render() {
-
         return (
             <ul className="collection">
                 {
                     this.state.users.map((user, i) => 
-                    <UserItem
+                    <UserListItem
                         key={i}
                         name={`${user.name.title} ${user.name.first} ${user.name.last}`}
                         email={semiHideEmail(user.email)}

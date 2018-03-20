@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { getAdequateFormatDate } from './../../shared/utils'
 
 
-export const UserItem = (props) => {
+export const UserListItem = (props) => {
     return (
         <li className="collection-item avatar">
             <img src={props.src} alt="avatar" className="circle" />                
@@ -16,7 +16,7 @@ export const UserItem = (props) => {
     )
 }
 
-UserItem.propTypes = {
+UserListItem.propTypes = {
     src: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
