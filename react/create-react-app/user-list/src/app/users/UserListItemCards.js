@@ -3,13 +3,20 @@ import PropTypes from 'prop-types';
 
 import { getAdequateFormatDate } from './../../shared/utils'
 
+const checkGender = (gender) => {
+    if(gender === "female"){
+        return  "card #ffebee red lighten-5"
+    }
+    
+    return "card"
+} 
 
 export const UserListItemCards = (props) => {
     
     return (
         <div className="row">
             <div className="col s12 m7">
-                <div className="card">
+                <div className={checkGender(props.gender)}>
                     <div className="card-image">
                         <img src={props.src} alt="avatar" />
                         <span className="card-title">{`name: ${props.name}`}</span>
