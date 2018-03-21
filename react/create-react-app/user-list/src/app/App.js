@@ -1,30 +1,14 @@
 import React from 'react';
 
-import { Header } from './partials/header'
 import { Footer } from './partials/footer'
-import { UserList } from './users/UserList';
+import { UserPage } from './users/UserPage';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {usersView: true}
-  }
+export const App = () =>{
 
-  changeView = () => {
-    const currentView = this.state.usersView ? false : true
-    this.setState({usersView: currentView})  
-  }
-
-  
-  render(){    
-    return (
-        <div className="container">
-              <Header changeView={this.changeView}/>
-              <UserList updateView={this.state.usersView}/>
-              <Footer />
-        </div>
-    )
-  }
+  return (
+    <div className="container">       
+      <UserPage />
+      <Footer />
+    </div>
+  )
 }
-
-export { App };
