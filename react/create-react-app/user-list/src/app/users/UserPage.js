@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { Header } from './../partials/header'
 import { UserList } from './UserList';
 import { SearchInput } from './SearchInput'
 import { userService } from './../../services/UserServices'
+import { Spinner } from './../partials/Spinner'
 
-class UserPage extends React.Component {
+class UserPage extends Component {
   constructor(props) {
     super(props)
     this.state = { 
       listView: this.getInitialView(),
-      users: []
+      users: [],
+      loaded: true
     }
   }
 
   changeView = () => {
-    const currentView = this.state.listView ? false : true
+    const currentView = !this.state.listView
     localStorage.setItem("listView", currentView)
     this.setState({ listView: currentView })
   }
@@ -24,23 +26,32 @@ class UserPage extends React.Component {
     return localStorage.getItem("listView") === "true"
   }
 
-  fetchFunction = () => {  
+  fetchUsers = () => {  
+    this.setState({ loaded: false })
     userService.fetchUsers()
         .then((listOfUsers) => {                
-            this.setState({ users: listOfUsers });
+            this.setState({ 
+              users: listOfUsers,
+              loaded: true
+             });
         })        
   }
 
   componentDidMount() {  
-    this.fetchFunction()    
+    this.fetchUsers()    
  }   
 
-  render() {    
+ loading = () => {
+   return (this.state.loaded) ? (<div> <SearchInput userSearch={this.state.users} /> 
+    <UserList updateView={this.state.listView} users={this.state.users}/></div>) :
+    <Spinner />
+ }
+
+  render() { 
     return (
       <div>
-        <Header changeView={this.changeView} changeIcon={this.state.listView}  fetchUsers={this.fetchFunction}/>
-        <SearchInput userSearch={this.state.users} />
-        <UserList updateView={this.state.listView} users={this.state.users}/>
+        <Header changeView={this.changeView} changeIcon={this.state.listView}  fetchUsers={this.fetchUsers}/>
+        {this.loading()}
       </div>
     )
   }
