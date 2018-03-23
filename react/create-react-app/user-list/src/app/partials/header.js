@@ -1,5 +1,5 @@
 import React from 'react'
-import './header.css'
+import { Link } from 'react-router-dom'
 
 export const Header = (props) => {
   const pickView = () => {
@@ -14,6 +14,7 @@ export const Header = (props) => {
       <div className="nav-wrapper">
         <a href="#!" className="brand-logo left">React Users</a>
         <ul className="right hide-on-med-and-down">
+          <li><Link to={'/about'}>About</Link></li>
           <li><a href="#!" onClick={props.changeView}>{pickView()}</a></li>
           <li><a href="#!" onClick={props.fetchUsers}><i className="material-icons">refresh</i></a></li>
         </ul>

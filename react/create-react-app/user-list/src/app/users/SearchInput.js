@@ -11,11 +11,22 @@ class SearchInput extends Component {
     }
 
     handleChange = (e) => {
-        const users = this.props.userSearch             
-        this.setState({
-           value: e.target.value
+        const users = this.props.userSearch 
+        const currentState = e.target.value             
+        this.setState(() => {
+            return {
+                ...this.state,
+                value: currentState
+            }        
         })
-        console.log(this.state.value);
+
+        const filteredUsers = users.filter(({name}) => {
+            name=name.first                        
+            return name.includes(this.state.value)
+        })
+        
+        console.log(filteredUsers);
+         
                
     }
 
